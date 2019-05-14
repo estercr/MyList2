@@ -15,11 +15,38 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public tasks = [];
+
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams) {}
+  
+  ionViewDidEnter(): void {
+    const { desc } = this.navCtrl.getByIndex(0).data;
+    const { index } = this.navCtrl.getByIndex(0).data;
+
+    if (desc && index === undefined) {
+      const newTask = {
+        desc: desc,
+        done: false
+      };
+
+      this.tasks.push(newTask);
+    } else if (index !== undefined) {
+      this.tasks[index].desc = desc;
+    }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+  private deleteTask(index: number): void {
+    this.tasks.splice(index, 1);
+  }
+
+  editTask(desc: string, index: number): void {
+    const task = {
+      desc: desc,
+      index: index
+    };
+
+    this.navCtrl.push('TaskPage', task);
   }
 
 }

@@ -18,13 +18,15 @@
 
     <ion-item>
       <ion-label floating>Descrição</ion-label>
-      <ion-input type="text" [(ngModel)]="description"></ion-input>
+      <ion-input type="text" [(ngModel)]="desc"></ion-input>
     </ion-item>
   </ion-list>
 
   <button ion-button icon-start (click)="addTask()">
     <ion-icon name="add"></ion-icon>
-    Criar
+    {{ task?.desc ? 'Editar' : 'Adicionar' }}
   </button>
+
+
 
 </ion-content>

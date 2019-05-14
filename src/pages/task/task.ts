@@ -14,21 +14,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'task.html',
 })
 export class TaskPage {
-
-  public description: string; 
-
+  
+  public task: { desc: string, index: number };
+  public desc: string; 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.task = this.navParams.data.desc ? this.navParams.data : {};
+    this.desc = this.task.desc;
   }
+
+    ionViewDidLoad() {
+      this.navCtrl.getPrevious().data = {};
+  }
+
   addTask(): void {
     const homePage = this.navCtrl.getPrevious();
-    homePage.data.description = this.description;
+    homePage.data.desc = this.desc;
+    homePage.data.index = this.task.index;
+    
     
     this.navCtrl.pop();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TaskPage');
-  }
 
 }
